@@ -1,0 +1,78 @@
+# Log-likelihood functions for computing maximum likelihood estimators of the BB, McGBB and BBB distributions.
+
+# ------------
+# --- data ---
+# ------------
+
+x <- c(rep(0,47),rep(1,54),rep(2,43),rep(3,40),rep(4,40),rep(5,41),rep(6,39),rep(7,95))
+
+# ------------
+# --- Fits ---
+# ------------
+
+n <- max(x)# 7 trials 
+
+# Fitting with the BB distribution
+
+fitBB <- optim(par=c(0.7,0.5),fn=loglikBB,method=c("BFGS"),hessian=TRUE,x=x,n=n)
+fitBB$par# 0.7228368 0.5807510
+fitBB$value# 813.4571
+fitBB$converge# 0
+sqrt(diag(solve(fitBB$hessian)))#0.07097197 0.05753769
+
+AIC=-2*(-813.4571)+2*2
+AIC#1630.914
+
+BIC=2*log(399)-2*(-813.4571)
+BIC#1638.892
+
+# Fitting with the McGBB distribution
+
+fitMcGBB <- optim(par=c(0.03,0.1,10),fn=loglikMcGBB,method=c("L-BFGS-B"),lower=c(1e-12,1e-12,1e-12),upper=c(Inf,Inf,Inf),hessian=TRUE,x=x,n=n)
+fitMcGBB$par# 0.02769016  0.15446285 32.34513972
+fitMcGBB$value# 809.6266
+fitMcGBB$converge# 0
+sqrt(diag(solve(fitMcGBB$hessian)))# 0.02436972  0.11839993 28.91637903
+
+AIC=-2*(-809.6266)+2*3
+AIC#1625.253
+
+BIC=3*log(399)-2*(-809.6266)
+BIC#1637.220
+
+# Fitting with the BBB distribution
+
+fitBBB <- optim(par=c(1,0.32,0.71),fn=loglikBBB,method=c("BFGS"),hessian=TRUE,x=x,n=7)
+fitBBB$par# 1.1465650 0.3249226 0.7007271
+fitBBB$value# 809.3288
+fitBBB$converge# 0
+sqrt(diag(solve(fitBBB$hessian)))# 0.15954491 0.08466367 0.21398577
+
+AIC=-2*(-809.3288)+2*3
+AIC#1624.658
+
+BIC=3*log(399)-2*(-809.3288)
+BIC#1636.624
+
+# --------------
+# --- Figure ---
+# --------------
+
+i <- c(0,1,2,3,4,5,6,7)
+y <- c(47,54,43,40,40,41,39,95)
+plot(i,y/399,type="h",ylim=c(0,0.25),xlab="Number of Drinking days (Week 1)",ylab="p.m.f.",cex.lab=1.3)
+a <- 0.03710403  
+b <- 0.19560671 
+q <- 24.00036414
+lines(i,dMcGBB2(i,n,a,b,q),type="p",col="grey",pch=1)
+lines(i,dMcGBB2(i,n,a,b,q),type="l",col="grey",lty=3)
+a <- 0.7228368 
+b <- 0.5807510
+lines(i,dbb(i,n,a,b),type="p",pch=2,col="grey")
+lines(i,dbb(i,n,a,b),type="l",lty=3,col="grey")
+a <- 1.1465650 
+b <- 0.3249226 
+q <- 0.7007271
+lines(i,dbbb(i,n,a,b,q),type="p",col="black",pch=7)
+lines(i,dbbb(i,n,a,b,q),type="l",col="black",lty=3,lwd=2)
+legend("toplef",c("McGBB","BB","BBB"),lty=3,pch=c(1,2,7),col=c("grey","grey","black"))
