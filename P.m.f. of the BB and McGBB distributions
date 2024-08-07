@@ -1,0 +1,26 @@
+# a is the alpha parameter 
+# b is the beta parameter
+# q is the q parameter 
+# n is the trial numbers
+
+library(extraDistr) # Package for computing the beta-binomial distribution
+library(DescTools)  # Package to compute combinatorics.
+
+# Beta-binomial (BB) probability mass function
+
+dBB <- function(x,n,a,b){
+  dbbinom(x,size=n,alpha=a,beta=b)
+}
+
+# McDoland Generalized Beta-binomial (McGBB) probability mass function
+
+dMcGBB <- function(x,n,a,b,q){ 
+  m = length(x)
+  f = numeric(m)
+  for(i in 1:m){
+    f[i] = integrate(function(t,x,n,a,b,q){
+       CombN(n,x)*q/beta(a,b)*t^{x+a*q-1}*(1-t)^{n-x}*(1-t^q)^{b-1}
+    },x=x[i],n=n,a=a,b=b,q=q,lower=0,upper=1)$value
+  }
+  return(f)
+}
