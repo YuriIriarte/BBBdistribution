@@ -1,0 +1,1 @@
+The bimodal beta-binomial (BBB) ​​distribution corresponds to a weighted version of the beta-binomial distribution, which admits up to two modes for the probability mass function. Like the beta-binomial distribution, the proposed distribution performs well in modeling overdispersed binomial data, but is also able to capture the bimodality exhibited in the data.
