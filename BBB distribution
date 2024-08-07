@@ -1,6 +1,6 @@
 # a is the alpha parameter 
 # b is the beta parameter
-# q is the q parameter 
+# q is the q parameter
 # n is the trial numbers
 
 library(extraDistr) # Package for computing the beta-binomial distribution 
