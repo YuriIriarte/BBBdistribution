@@ -1,0 +1,59 @@
+# a is the alpha parameter 
+# b is the beta parameter
+# q is the q parameter 
+# n is the trial numbers
+
+library(extraDistr) # Package for computing the beta-binomial distribution 
+
+# --------------------------------- 
+# --- Probability mass function --- 
+# --------------------------------- 
+
+dBBB <- function(x,n,a,b,q){
+  d = dbbinom(x,n,alpha=a,beta=b)
+  m = n*a/(a+b)
+  s = sqrt(n*a*b*(a+b+n)/((a+b)^2*(a+b+1)))
+    1/(2+q^2)*(1+(1-q*(x-m)/s)^2)*d
+}
+
+# ----------------------------------------
+# --- Cumulative distribution function ---
+# ----------------------------------------
+
+pBBB <- function(x,a,b,q){
+  m = length(x)
+  f = rep(0,m)
+  for(i in 1:m){
+    f[i] = sum(dBBB(x,a,b,q)[1:i])
+  }
+  return(f)
+}
+
+# -------------------
+# --- rth moment ---
+# -------------------
+
+# beta-binomial rth moment
+
+ momBB <- function(r,n,a,b){
+   x = 0:n
+   m = length(x)
+   f = numeric(m)
+   for(i in 1:m){
+     f[i] = x[i]^r*dbbinom(x[i],size=n,alpha=a,beta=b)
+   }
+   sumf = sum(f)
+   return(sumf)
+ }
+
+# bimodal beta-binomial rth moment
+
+ momBBB <- function(r,n,a,b,q){
+   m = n*a/(a+b)
+   s = sqrt(n*a*b*(a+b+n)/((a+b)^2*(a+b+1)))
+   aa = 1/(2+q^2)*(2+2*q*m/s+q^2*m^2/s^2)
+   bb = 1/(2+q^2)*(2*q/s+2*q^2*m/s^2)
+   cc = q^2/((2+q^2)*s^2)
+      aa*momBB(r,n,a,b)-bb*momBB(r+1,n,a,b)+cc*momBB(r+2,n,a,b)
+ }
+
