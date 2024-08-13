@@ -61,18 +61,22 @@ BIC#1636.624
 i <- c(0,1,2,3,4,5,6,7)
 y <- c(47,54,43,40,40,41,39,95)
 plot(i,y/399,type="h",ylim=c(0,0.25),xlab="Number of Drinking days (Week 1)",ylab="p.m.f.",cex.lab=1.3)
+
 a <- 0.03710403  
 b <- 0.19560671 
 q <- 24.00036414
 lines(i,dMcGBB(i,n,a,b,q),type="p",col="grey",pch=1)
 lines(i,dMcGBB(i,n,a,b,q),type="l",col="grey",lty=3)
+
 a <- 0.7228368 
 b <- 0.5807510
 lines(i,dBB(i,n,a,b),type="p",pch=2,col="grey")
 lines(i,dBB(i,n,a,b),type="l",lty=3,col="grey")
+
 a <- 1.1465650 
 b <- 0.3249226 
 q <- 0.7007271
 lines(i,dBBB(i,n,a,b,q),type="p",col="black",pch=7)
 lines(i,dBBB(i,n,a,b,q),type="l",col="black",lty=3,lwd=2)
 legend("toplef",c("McGBB","BB","BBB"),lty=3,pch=c(1,2,7),col=c("grey","grey","black"))
+
