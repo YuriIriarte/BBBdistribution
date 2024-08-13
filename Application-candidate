@@ -79,5 +79,5 @@ b <- 9.8873961
 q <- 0.9792702
 lines(i,dBBB(i,n,a,b,q),type="p",col="black",pch=7)
 lines(i,dBBB(i,n,a,b,q),type="l",col="black",lty=3,lwd=2)
-legend("toplef",c("McGBB","BB","BBB"),lty=3,pch=c(1,2,7),col=c("grey","grey","black"))
+legend("topright",c("McGBB","BB","BBB"),lty=3,pch=c(1,2,7),col=c("grey","grey","black"))
 
