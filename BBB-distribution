@@ -20,11 +20,11 @@ dBBB <- function(x,n,a,b,q){
 # --- Cumulative distribution function ---
 # ----------------------------------------
 
-pBBB <- function(x,a,b,q){
+pBBB <- function(x,n,a,b,q){
   m = length(x)
   f = rep(0,m)
   for(i in 1:m){
-    f[i] = sum(dBBB(x,a,b,q)[1:i])
+    f[i] = sum(dBBB(x,n,a,b,q)[1:i])
   }
   return(f)
 }
@@ -100,13 +100,13 @@ n <- length(x)
 a <- 4
 b <- 4
 q <- 0
-plot(pBBB(x,a,b,q),type="h",ylim=c(0,1),xlab="x",ylab="c.d.f.", cex.lab=1.4)
+plot(pBBB(x,n,a,b,q),type="h",ylim=c(0,1),xlab="x",ylab="c.d.f.", cex.lab=1.4)
 legend("topleft",expression(q==0),lty=1)
 q <- 3
-plot(pBBB(x,a,b,q),type="h",ylim=c(0,1),xlab="x",ylab="c.d.f.", cex.lab=1.4)
+plot(pBBB(x,n,a,b,q),type="h",ylim=c(0,1),xlab="x",ylab="c.d.f.", cex.lab=1.4)
 legend("topleft",expression(q==3),lty=1)
 q <- -3
-plot(pBBB(x,a,b,q),type="h",ylim=c(0,1),xlab="x",ylab="c.d.f.", cex.lab=1.4)
+plot(pBBB(x,n,a,b,q),type="h",ylim=c(0,1),xlab="x",ylab="c.d.f.", cex.lab=1.4)
 legend("topleft",expression(q==-3),lty=1)
 
 # Coeficient of variation
