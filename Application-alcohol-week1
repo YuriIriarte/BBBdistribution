@@ -1,4 +1,4 @@
-# Log-likelihood functions for computing maximum likelihood estimators of the BB, McGBB and BBB distributions.
+# Files BB-McGBB-distributions, BBB-distribution and Log-likelihood must be previously run.
 
 # ------------
 # --- data ---
